@@ -22,5 +22,4 @@ public class Message implements Serializable {
     private int id;
     @Column(name = "message")
     private String message;
-
 }
