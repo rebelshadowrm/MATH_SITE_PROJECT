@@ -1,5 +1,7 @@
-package com.group.mathproject.message;
+package com.group.mathproject.service;
 
+import com.group.mathproject.model.Message;
+import com.group.mathproject.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

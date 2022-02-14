@@ -1,5 +1,8 @@
-package com.group.mathproject.message;
+package com.group.mathproject.controller;
 
+import com.group.mathproject.model.Message;
+import com.group.mathproject.exception.NotFoundException;
+import com.group.mathproject.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +28,7 @@ public class MessageController {
     @GetMapping("/messages/{id}")
     public Message getMessageById(@PathVariable("id") int id) {
         return messageService.findById(id)
-                                    .orElseThrow(()->new MessageNotFoundException(
+                                    .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
                                     ));
     }
@@ -39,7 +42,7 @@ public class MessageController {
     public Message updateMessage(@PathVariable("id") int id,
                                  @RequestBody Message newMsg) {
         Message msg = messageService.findById(id)
-                                    .orElseThrow(()->new MessageNotFoundException(
+                                    .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
                                     ));
         msg.setMessage(newMsg.getMessage());
@@ -49,7 +52,7 @@ public class MessageController {
     @DeleteMapping("/messages/{id}")
     public String deleteMessage(@PathVariable("id") int id) {
         Message msg = messageService.findById(id)
-                                    .orElseThrow(()->new MessageNotFoundException(
+                                    .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
                                     ));
         messageService.deleteById(msg.getId());

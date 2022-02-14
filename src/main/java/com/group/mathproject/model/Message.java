@@ -1,4 +1,4 @@
-package com.group.mathproject.message;
+package com.group.mathproject.model;
 
 import lombok.*;
 import lombok.experimental.Accessors;
