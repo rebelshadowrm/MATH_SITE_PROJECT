@@ -1,43 +1,37 @@
 <template>
   <header>
-      <h1>{{ title }}</h1>
-      <Button 
-        @btnClick="$emit('toggleAddMessage')" 
-        :text="showAddMessage ? 'Close' : 'Add Message'" 
-        :bgColor="showAddMessage ? 'red' : 'green'"
-        :txtColor="showAddMessage ? '#222' : '#eee'" 
-      />
-  </header>
+  <img alt="Vue logo" src="../assets/logo.png">
+  <div id="nav">
+    <router-link to="/">Home</router-link>
+    <router-link to="/profile">Profile</router-link>
+    <router-link to="/test">Test</router-link>
+    <router-link to="/flashcards">Flashcards</router-link>
+    <router-link to="/drills">Drills</router-link>
+  </div>
+</header>
 </template>
 
 <script>
-import Button from './Button.vue'
 export default {
-    name: 'Header',
-    props: {
-        title: String,
-        showAddMessage: Boolean,
-    },
-    components: {
-        Button
-    },
+    name: "Header",
 }
 </script>
 
 <style scoped>
 header {
-    padding: 1rem 3rem;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    gap: 3rem;
+  display: grid;
+  place-items: center;
 }
-button {
-    justify-self: end;
+#nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25em;
 }
-h1 {
-    font-weight: 800;
-    color: var(--clr-text-heading);
-    font-size: 3rem;
+a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--ff);
+  text-decoration: wavy;
+  color: var(--clr-text);
 }
 </style>

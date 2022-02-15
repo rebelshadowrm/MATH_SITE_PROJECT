@@ -1,29 +1,44 @@
 package com.group.mathproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serial;
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
 @Getter
 @Setter
-@Accessors(chain=true)
-@NoArgsConstructor
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "questions")
-public class Question implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Question {
     @Id
-    private int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer id;
     private String question;
-    private String answer;
+    private LEVEL level;
+    private DIFFICULTY difficulty;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+    private Collection<Answer> answers = new ArrayList<>();
+
+    private Question generateQuestion(LEVEL level, DIFFICULTY difficulty) {
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Question question = (Question) o;
+        return id != null && Objects.equals(id, question.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

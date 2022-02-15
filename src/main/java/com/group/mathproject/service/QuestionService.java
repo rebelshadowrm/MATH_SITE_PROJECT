@@ -1,36 +1,15 @@
 package com.group.mathproject.service;
 
 import com.group.mathproject.model.Question;
-import com.group.mathproject.repository.QuestionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class QuestionService {
-
-    private final QuestionRepository questionRepository;
-
-    @Autowired
-    public QuestionService(QuestionRepository questionRepo){
-        this.questionRepository = questionRepo;
-    }
-
-    public List<Question> getQuestions(){
-        return questionRepository.findAll();
-    }
-
-    public void createQuestions(List<Question> questions){
-        questionRepository.saveAll(questions);
-    }
-
-    public void updateQuestion(int id, Question question){
-        var updateQ = questionRepository.findById(id);
-
-    }
-
-    public void deleteQuestion(Question question){
-        questionRepository.delete(question);
-    }
+public interface QuestionService {
+    Question saveQuestion(Question question);
+    void createQuestions(List<Question> questions);
+    List<Question> getQuestions();
+    Optional<Question> findById(Integer id);
+    void deleteById(Integer id);
+    void deleteQuestion(Question question);
 }

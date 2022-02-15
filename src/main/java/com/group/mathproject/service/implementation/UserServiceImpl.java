@@ -1,9 +1,10 @@
-package com.group.mathproject.service;
+package com.group.mathproject.service.implementation;
 
 import com.group.mathproject.model.Role;
 import com.group.mathproject.model.User;
 import com.group.mathproject.repository.RoleRepository;
 import com.group.mathproject.repository.UserRepository;
+import com.group.mathproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

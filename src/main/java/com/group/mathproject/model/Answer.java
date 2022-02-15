@@ -3,30 +3,32 @@ package com.group.mathproject.model;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Role {
+@Entity
+@Table(name = "answer")
+public class Answer {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+    @Column(name = "answer_id", nullable = false)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+    private String answer;
+    private Boolean correct;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Role role = (Role) o;
-        return id != null && Objects.equals(id, role.id);
+        Answer answer = (Answer) o;
+        return id != null && Objects.equals(id, answer.id);
     }
 
     @Override

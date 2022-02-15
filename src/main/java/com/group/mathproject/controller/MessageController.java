@@ -3,7 +3,9 @@ package com.group.mathproject.controller;
 import com.group.mathproject.model.Message;
 import com.group.mathproject.exception.NotFoundException;
 import com.group.mathproject.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,22 +13,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class MessageController {
-
     private final MessageService messageService;
 
-    @Autowired
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
-    }
-
     @GetMapping("/messages")
-    public List<Message> getMessages() {
-        return messageService.getMessages();
+    public ResponseEntity<List<Message>> getMessages() {
+        return ResponseEntity.ok().body(messageService.getMessages());
     }
 
     @GetMapping("/messages/{id}")
-    public Message getMessageById(@PathVariable("id") int id) {
+    public Message getMessageById(@PathVariable("id") Integer id) {
         return messageService.findById(id)
                                     .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
@@ -39,8 +36,8 @@ public class MessageController {
     }
 
     @PutMapping(value="/messages/{id}")
-    public Message updateMessage(@PathVariable("id") int id,
-                                 @RequestBody Message newMsg) {
+    public Message updateMessage(@PathVariable("id") Integer id,
+                                 @RequestBody @NotNull Message newMsg) {
         Message msg = messageService.findById(id)
                                     .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
@@ -50,7 +47,7 @@ public class MessageController {
     }
 
     @DeleteMapping("/messages/{id}")
-    public String deleteMessage(@PathVariable("id") int id) {
+    public String deleteMessage(@PathVariable("id") Integer id) {
         Message msg = messageService.findById(id)
                                     .orElseThrow(()->new NotFoundException(
                                             "Message with "+id+" is Not Found!"
