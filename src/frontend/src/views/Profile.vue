@@ -9,6 +9,7 @@
 </template>
 
 <script>
+let username = "johhny";
 export default {
   name: 'Profile',
   data() {
@@ -18,7 +19,7 @@ export default {
   },
   methods: {
     async fetchUser() {
-        const res = await fetch('/api/user/${username}')
+        const res = await fetch(`/api/user/${username}`)
         const data = await res.json()
         return data
     },
