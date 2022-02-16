@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+footer {
+  padding: 1rem 2rem;
+}
 </style>

@@ -7,6 +7,7 @@
     <router-link to="/test">Test</router-link>
     <router-link to="/flashcards">Flashcards</router-link>
     <router-link to="/drills">Drills</router-link>
+    <router-link to="/login">Login</router-link>
   </div>
 </header>
 </template>

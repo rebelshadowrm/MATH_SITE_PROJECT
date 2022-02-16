@@ -4,6 +4,7 @@ import Profile from '../views/Profile.vue'
 import Test from '../views/Test.vue'
 import Flashcards from '../views/Flashcards.vue'
 import Drills from '../views/Drills.vue'
+import Login from '../views/Login'
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
     path: '/drills',
     name: 'Drills',
     component: Drills
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
     },
 
 ]
