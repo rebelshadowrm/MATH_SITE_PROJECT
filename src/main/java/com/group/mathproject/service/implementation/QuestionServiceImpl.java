@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,17 +28,24 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getQuestions(){
+    public List<Question> getAllQuestions(){
+        //returns all questions in repo
         return questionRepository.findAll();
     }
 
     @Override
-    public Optional<Question> findById(Integer id) {
+    public List<Question> getSomeQuestions(int numOfQuestions){
+        //returns only amount of questions specified in default order
+        return questionRepository.findAll().subList(0, numOfQuestions - 1);
+    }
+
+    @Override
+    public Optional<Question> findById(int id) {
         return questionRepository.findById(id);
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteQuestionById(int id) {
         questionRepository.deleteById(id);
     }
 

@@ -1,5 +1,6 @@
 package com.group.mathproject.controller;
 
+import com.group.mathproject.exception.NotFoundException;
 import com.group.mathproject.model.Role;
 import com.group.mathproject.model.User;
 import com.group.mathproject.service.UserService;
@@ -21,6 +22,11 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>>getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @GetMapping("/user/{username}")
+    public User getUser(@PathVariable("username") String username) {
+        return userService.getUser(username);
     }
 
     @PostMapping("/user/save")
