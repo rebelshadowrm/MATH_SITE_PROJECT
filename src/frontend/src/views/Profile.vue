@@ -1,14 +1,40 @@
 <template>
-    <h1>Profile</h1>
+  <div class="profile-container">
+    <h1>{{user.username}}'s Profile</h1>
+    <p>Name: {{user.first_name}} {{user.last_name}}<br>
+    Email: {{user.email}}
+    </p>
+
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Profile',
-    
+  data() {
+    return {
+          user: {id: 1, username: "Johhny", password: "suck1t", email: "johhny@gmail.com", first_name: "Johhny", last_name: "Alpha"},
+    }
+  },
+  methods: {
+    async fetchUser() {
+        const res = await fetch('/api/user/${username}')
+        const data = await res.json()
+        return data
+    },
+  },
 }
 </script>
 
 <style>
-
+.profile-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+h1 {
+  margin-left: 1rem;
+}
 </style>
