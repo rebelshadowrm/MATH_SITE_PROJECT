@@ -8,8 +8,9 @@ import java.util.Optional;
 public interface QuestionService {
     Question saveQuestion(Question question);
     void createQuestions(List<Question> questions);
-    List<Question> getQuestions();
-    Optional<Question> findById(Integer id);
-    void deleteById(Integer id);
+    List<Question> getAllQuestions();
+    List<Question> getSomeQuestions(int numOfQuestions);
+    Optional<Question> findById(int id);
+    void deleteQuestionById(int id);
     void deleteQuestion(Question question);
 }
