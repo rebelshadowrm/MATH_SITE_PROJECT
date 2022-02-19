@@ -23,8 +23,10 @@ export default {
 
 <style scoped>
 .message {
-  border: 1px solid white;
-  border-radius: 6px;
+  border: 1px solid hsl(var(--clr-white-200) / .3);
+  background: hsl(var(--clr-white-400) / .1);
+  backdrop-filter: blur(7px);
+  border-radius: var(--radius);
   padding: 1.7rem 1rem;
   display: grid;
   grid-auto-flow: column;

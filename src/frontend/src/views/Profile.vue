@@ -1,10 +1,9 @@
 <template>
-  <div class="profile-container">
+  <div class="profile-container" >
     <h1>{{user.username}}'s Profile</h1>
     <p>Name: {{user.first_name}} {{user.last_name}}<br>
     Email: {{user.email}}
     </p>
-
   </div>
 </template>
 
@@ -14,7 +13,7 @@ export default {
   name: 'Profile',
   data() {
     return {
-          user: {id: 1, username: "Johhny", password: "suck1t", email: "johhny@gmail.com", first_name: "Johhny", last_name: "Alpha"},
+      user: {id: 1, username: "Johhny", password: "suck1t", email: "johhny@gmail.com", first_name: "Johhny", last_name: "Alpha"},
     }
   },
   methods: {
@@ -23,11 +22,12 @@ export default {
         const data = await res.json()
         return data
     },
-  },
+  }
+
 }
 </script>
 
-<style>
+<style scoped>
 .profile-container {
   margin: 0 auto;
   display: flex;

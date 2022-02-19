@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style>
+<style  scoped>
 .drills-container {
   margin: 0 auto;
   display: flex;

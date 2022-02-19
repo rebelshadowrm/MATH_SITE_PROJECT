@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .btn {
-  font-family: var(--ff);
+  font-family: var(--ff-primary);
   font-weight: 900;
   text-shadow: 1px 1px 0px hsl(0, 0%, 0%, .3);
   letter-spacing: 1px;

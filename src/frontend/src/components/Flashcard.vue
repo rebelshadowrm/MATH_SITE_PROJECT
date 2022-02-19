@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <input class="card-toggle" id="toggle" type="checkbox" />
+    <input class="card-toggle" :id="'toggle'+id" type="checkbox" />
     <div class="content">
       <div class="card-front">
         <h2 class="card-title">Question</h2>
@@ -11,7 +11,7 @@
         <h3 class="card-title">Answer</h3>
         <p class="card-description">{{ answer }}</p>
       </div>
-      <label class="toggle-label" for="toggle"></label>
+      <label class="toggle-label" :for="'toggle'+id"></label>
     </div>
   </div>
 </template>
@@ -21,12 +21,13 @@ export default {
   props: {
     question: String,
     answer: String,
+    id: Number,
   }
 }
 </script>
-<style>
+<style scoped>
 .card {
-  --card-color: hsl(260, 22%, 16%);
+  --card-color: hsl(var(--clr-primary-200) / .1);
   --card-height: 25rem;
   --card-width: 40ch;
   perspective: 200vw;
@@ -34,7 +35,7 @@ export default {
   width: 100%;
   max-width: var(--card-width);
   border-radius: var(--radius);
-
+  background-color: transparent;
 }
 .content {
   position: relative;
@@ -58,8 +59,9 @@ export default {
   position: absolute;
   padding: 3em 2em 5em 2em;
   background-color: var(--card-color);
+  backdrop-filter: blur(7px);
   border-radius: var(--radius);
-  border: 2px inset hsl(0 0% 100% / .33);
+  border: 2px solid hsl(var(--clr-accent-600) / .5);
   backface-visibility: hidden;
   user-select: none;
   pointer-events: none;
@@ -75,11 +77,11 @@ export default {
   font-size: var(--txt-small);
 }
 .card-title {
-  font-size: var(--txt-med-700);
+  font-size: var(--txt-lrg-fluid);
   font-weight: 700;
 }
 .card-description {
-  font-size: var(--txt-med);
+  font-size: var(--txt-med-fluid);
   font-weight: 300;
 }
 .card-icon {
@@ -100,6 +102,6 @@ export default {
 }
 .card-toggle:checked + .content {
   transform: rotateY(180deg);
-  transition: transform 500ms;
+  transition: transform ease-out 300ms;
 }
 </style>

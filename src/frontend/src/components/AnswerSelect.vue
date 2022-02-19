@@ -12,6 +12,13 @@ export default {
   },
 }
 </script>
-<style>
-
+<style scoped>
+input {
+  accent-color: hsl(var(--clr-accent-400));
+}
+label {
+  display: inline-block;
+  padding: .25rem;
+  font-size: var(--txt-med);
+}
 </style>

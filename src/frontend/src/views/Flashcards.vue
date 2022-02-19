@@ -1,9 +1,10 @@
 <template>
 <div class="card-container">
   <Flashcard
-      :key="flashcard.id" v-for="flashcard in flashcards"
+      :key="flashcard.id" v-for="flashcard in this.flashcards"
       :question="flashcard.question"
       :answer="flashcard.answer"
+      :id="flashcard.id"
   />
 </div>
 </template>
@@ -57,7 +58,7 @@ export default {
 }
 </script>
 
-<style>
+<style  scoped>
 .card-container {
   padding: 3rem;
   display: grid;

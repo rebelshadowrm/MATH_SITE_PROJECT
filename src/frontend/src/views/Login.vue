@@ -1,35 +1,46 @@
 <template>
   <div class="container">
-    <Form :form="loginData" />
+    <LoginForm @onSubmit="onSubmit" />
   </div>
 </template>
 <script>
-import Form from '../components/Form.vue'
+
+import LoginForm from '../components/LoginForm.vue'
 export default {
   name: 'Login',
   components: {
-    Form,
+    LoginForm,
   },
   data() {
     return {
-      loginData: [
-        {
-          "id": 1,
-          "name": "username",
-          "type": "text",
-          "length": 40
-        },
-        { "id": 2,
-          "name": "password",
-          "type": "text",
-          "length": 40
-        },
-      ],
+      username: '',
+      password: '',
     }
-  }
+  },
+  methods: {
+    async onSubmit(e) {
+      const {username, password} = Object.fromEntries(new FormData(e.target))
+      this.username = username
+      this.password = password
+      const options = {
+          method: 'POST',
+          body: new URLSearchParams({
+              username: `${username}`,
+              password: `${password}`
+        })
+    }
+      const res = await fetch('/api/login', options)
+      const data = await res.json()
+      const {access_token, refresh_token} = data
+      if(access_token !== '' && refresh_token !== '') {
+        localStorage.setItem("access_token", access_token)
+        localStorage.setItem("refresh_token", refresh_token)
+      }
+    }
+  },
 }
 </script>
-<style>
+<style scoped>
 .container {
   display: grid;
   place-items: center;
