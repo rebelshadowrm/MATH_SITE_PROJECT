@@ -1,5 +1,5 @@
 <template>
-    <div :key="question.id" v-for="(question) in questions" class="question-box">
+    <div :v-for="(question) in questions" :key="question.id" class="question-box">
       <p class="question">{{question.question}}</p>
       <div class="answer-box">
       <AnswerSelect
@@ -45,7 +45,7 @@ export default {
 }
 .answer-box {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  /*grid-template-columns: max-content 1fr;*/
   gap: .5rem;
   padding: .5rem;
   border-radius: 20px;
