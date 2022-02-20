@@ -4,14 +4,16 @@
     <p>Name: {{user.first_name}} {{user.last_name}}<br>
     Email: {{user.email}}
     </p>
+    <p>{{error}}</p>
   </div>
 </template>
 
 <script>
-let username = "johhny";
+import useUsers from '../composables/users.js'
+//let username = "johhny";
 export default {
   name: 'Profile',
-  data() {
+/*   data() {
     return {
       user: {id: 1, username: "Johhny", password: "suck1t", email: "johhny@gmail.com", first_name: "Johhny", last_name: "Alpha"},
     }
@@ -22,6 +24,11 @@ export default {
         const data = await res.json()
         return data
     },
+  } */
+  setup: async () => {
+    const {user, error, loadUser } = useUsers()
+    await loadUser()
+    return { user, error }
   }
 
 }
