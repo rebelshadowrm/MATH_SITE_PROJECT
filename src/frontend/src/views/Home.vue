@@ -54,7 +54,7 @@ h2 {
   font-size: var(--txt-xlrg-fluid);
   margin-left: 1rem;
   color: hsl(var(--clr-accent-200) / .75);
-  transform: translateX(-200%);
+  transform: translateX(-200vw);
   animation: slide 500ms forwards ease-in 350ms;
 }
 a {
@@ -71,20 +71,20 @@ a {
   text-transform: capitalize;
   border: 2px solid hsl(var(--clr-accent-200) / .8);
   cursor: pointer;
-  transform: translateX(-200%);
+  transform: translateX(-200vw);
   animation: slide 500ms forwards ease-in 850ms;
   transition: filter 350ms ease, box-shadow 200ms ease;
 }
 a:hover,
 a:focus {
   filter: brightness(1.3);
-  box-shadow: 2px 2px 4px 0px hsl(var(--clr-white-200) / .5);
+  box-shadow: 2px 2px 4px 0 hsl(var(--clr-white-200) / .5);
   transition: filter 350ms ease, box-shadow 450ms ease;
 }
 
 @keyframes slide {
   0% {
-    transform: translateX(-200%);
+    transform: translateX(-200vw);
   }
   100% {
     transform: translateX(0);
