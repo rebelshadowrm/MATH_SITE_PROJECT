@@ -3,7 +3,8 @@
     <h1>{{user.userName}}'s Profile</h1>
     <div class="main">
     <UserCard/>
-    <MessageComponent />
+    <MessageComponent/>
+    <AddUser/>
     </div>
   </div>
 </template>
@@ -12,10 +13,12 @@
 
 import MessageComponent from "../components/messages/MessageComponent.vue";
 import UserCard from '../components/UserCard.vue'
+import AddUser from '../components/AddUser.vue'
 export default {
   name: 'Profile',
   components: {
     MessageComponent,
+    AddUser,
     UserCard,
   }
 }

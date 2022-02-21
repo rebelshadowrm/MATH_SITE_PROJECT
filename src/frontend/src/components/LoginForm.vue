@@ -83,7 +83,7 @@ input[type=password] {
   padding: .5rem .75rem;
   border-radius: var(--radius);
   background: hsl(var(--clr-secondary-200) / .1);
-  color: var(--text-color);
+  color: var(--clr-text);
   font-weight: 600;
 }
 label {
