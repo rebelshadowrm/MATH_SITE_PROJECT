@@ -1,5 +1,5 @@
 <template>
-    <div :v-for="(question) in questions" :key="question.id" class="question-box">
+    <div :key="question.id" v-for="(question) in questions" class="question-box">
       <p class="question">{{question.question}}</p>
       <div class="answer-box">
         <span class="answer-input" :key="answer.id" v-for="answer in question.answers" >
@@ -54,10 +54,9 @@ export default {
 }
 .answer-input {
   display: grid;
-  /*grid-template-columns: max-content 1fr;*/
+  grid-template-columns: max-content 1fr;
   gap: .5rem;
   padding: .75rem 1rem;
-  grid-template-columns: max-content 1fr;
   border-radius: 20px;
   align-items: baseline;
   background-color: hsl(var(--clr-secondary-600) / .5);

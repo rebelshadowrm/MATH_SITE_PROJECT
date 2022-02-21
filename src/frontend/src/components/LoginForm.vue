@@ -33,6 +33,9 @@ export default {
 }
 </script>
 <style scoped>
+h1 {
+  margin-left: .75rem;
+}
 form {
   background: hsl(var(--clr-primary-200) / .1);
   backdrop-filter: blur(7px);
@@ -80,6 +83,8 @@ input[type=password] {
   padding: .5rem .75rem;
   border-radius: var(--radius);
   background: hsl(var(--clr-secondary-200) / .1);
+  color: var(--text-color);
+  font-weight: 600;
 }
 label {
   margin-left: .5rem;

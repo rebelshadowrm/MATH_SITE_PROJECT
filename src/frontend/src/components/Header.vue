@@ -44,10 +44,14 @@ a {
 } */
 header {
   height: 100vh;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 20%,
-              rgba(255,255,255,1)), url("../assets/pinkbananas.jpg");
+  background: linear-gradient(to bottom,
+                            rgba(0,0,0, .5),
+                            rgba(0,0,0, .1) 50%,
+                            rgba(255,255,255, .75)),
+                            url("../assets/pinkbananas.jpg");
   background-size: cover;
   background-position: top;
+  background-blend-mode:  darken;
   position: relative;
 }
 .info {
@@ -59,31 +63,35 @@ header {
   text-align: center;
 }
 nav {
-  padding: 1rem;
-  max-width: calc(100% - 2rem);
+  padding: .75rem;
+  max-width: calc(100% - 3rem);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  
 }
 a {
   display: block;
-  padding: .75em;
   text-decoration: none;
   text-transform: uppercase;
   position: relative;
   transition: transform ease .5s;
+  color: var(--clr-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--ff-mono);
 }
-a:after {
+a::after {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
-  background: #333;
+  background: var(--clr-text);
   height: 1px;
   transform: scaleX(0%);
   transition: transform ease .5s;
 }
-a:hover:after {
+a:hover::after {
   transform: scaleX(100%);
 }
 

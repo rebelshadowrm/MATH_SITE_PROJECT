@@ -24,6 +24,7 @@ import java.util.Map;
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
@@ -49,7 +50,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
                 } catch(Exception ex) {
                     response.setHeader("error", ex.getMessage());
-                    response.setStatus(FORBIDDEN.value());
+                    response.setStatus(UNAUTHORIZED.value());
                     //response.sendError(FORBIDDEN.value());
                     Map<String, String> error = new HashMap<>();
                     error.put("error_message", ex.getMessage());
