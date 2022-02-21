@@ -5,10 +5,10 @@ import { reactive, readonly, computed } from 'vue'
 
   const state = reactive({
     userData: {
-      userName: "",
-      firstName: "",
-      lastName: "",
-      email: "",
+      userName: null,
+      firstName: null,
+      lastName: null,
+      email: null,
       roles: [],
     },
     isLoggedIn: false,
@@ -21,6 +21,9 @@ import { reactive, readonly, computed } from 'vue'
         return computed(
           () => `${state.userData.firstName} ${state.userData.lastName}`
         )
+      },
+      getUsername: () => {
+        return computed(() => state.userData?.userName)
       },
       getIsLoggedIn: () => {
         return computed(() => state.isLoggedIn)
@@ -48,23 +51,22 @@ import { reactive, readonly, computed } from 'vue'
 
   const actions = {
     updateUserData: ({ first_name, last_name, email, username, roles }) => {
+      actions.updateIsLoggedIn(true)
       state.userData.firstName = first_name
       state.userData.lastName = last_name
       state.userData.email = email
       state.userData.userName = username
       roles?.forEach(role => state.userData.roles.push(role))
-  
-      actions.updateIsLoggedIn(true);
     },
     updateIsLoggedIn: (isLoggedIn) => {
       state.isLoggedIn = isLoggedIn;
+
       if (isLoggedIn === false) {
         state.userData.firstName = ''
         state.userData.lastName = ''
         state.userData.email = ''
         state.userData.userName = ''
         state.userData.roles = []
-        
         methods.removeTokens()
       }
     },
@@ -78,21 +80,25 @@ import { reactive, readonly, computed } from 'vue'
       localStorage.setItem(TOKEN, token)
     },
     loadUser: async () => {
-      const data = await methods.getUserData()
-      if(data.status === 401 || data.status === 403) {
-        actions.updateError("Attempting to refresh token")
-        const response = await fetch('/api/token/refresh', getters.RefreshGet())
-        const {access_token} = await response.json()
-        actions.updateAccessToken(access_token)
-        const newData = await methods.getUserData()
-        if(newData.status === 200 || newData.status === 201) {
-          actions.updateUserData(await newData.json())
+      if(methods.getRefreshToken() !== undefined) {
+        const data = await methods.getUserData()
+        if(data.status === 401 || data.status === 403) {
+          actions.updateError("Attempting to refresh token")
+          const response = await fetch('/api/token/refresh', getters.RefreshGet())
+          const {access_token} = await response.json()
+          if(access_token !== undefined) {
+            actions.updateAccessToken(access_token)
+          }
+          const newData = await methods.getUserData()
+          if(newData.status === 200 || newData.status === 201) {
+            actions.updateUserData(await newData.json())
+          }
+        } else if (data.status === 200 || data.status === 201) {
+          actions.updateError('')
+          actions.updateUserData( await data.json())
+        } else {
+          actions.updateError(data)
         }
-      } else if (data.status === 200 || data.status === 201) {
-        actions.updateError('')
-        actions.updateUserData( await data.json())
-      } else {
-        actions.updateError(data)
       }
     },
   }
@@ -116,13 +122,18 @@ import { reactive, readonly, computed } from 'vue'
       try {
         return JSON.parse(atob(token.split('.')[1]))
       } catch (e) {
-        return null;
+        return null
       }
     },
     getUserData: async () => {
       try {
-        const {sub} = await methods.decodeJWT(methods.getAccessToken())
-        return await fetch(`/api/user/${sub}`, getters.AuthGet())
+        const token = methods.getAccessToken()
+        if(token !== undefined) {
+          const {sub} = await methods.decodeJWT(token)
+          return await fetch(`/api/user/${sub}`, getters.AuthGet())
+        } else {
+          throw new Error("Access token not available")
+        }
       } catch(err) { 
         actions.updateError(err)
       }

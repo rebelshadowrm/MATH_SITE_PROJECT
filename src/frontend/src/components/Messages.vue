@@ -32,7 +32,7 @@ export default {
   grid-auto-flow: column;
   align-items: baseline;
   gap: 1rem;
-  font-size: 1.25rem;
+  font-size: var(--txt-med);
   font-weight: 700;
 }
 .messages {

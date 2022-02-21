@@ -4,9 +4,8 @@
   </div>
 </template>
 <script>
-
-import LoginForm from '../components/LoginForm.vue'
-import useUsers from '../composables/users.js'
+import LoginForm from '@/components/LoginForm.vue'
+import useUsers from '@/composables/users.js'
 import router from '@/router'
 export default {
   name: 'Login',
@@ -16,6 +15,7 @@ export default {
 }
 </script>
 <script setup>
+  const { getUsername, loadUser  } = useUsers()
   const onSubmit = async (e) => {
     const {username, password} = Object.fromEntries(new FormData(e.target))
     const options = {
@@ -25,23 +25,22 @@ export default {
             password: `${password}`
       })
     }
-    const res = await fetch('/api/login', options)
-    const data = await res.json()
-    const {access_token, refresh_token} = data
-    if(access_token !== '') {
-      localStorage.setItem("access_token", access_token)
-    }
-    if( refresh_token !== '') {
-      localStorage.setItem("refresh_token", refresh_token)
+    if(username && password) {
+      const res = await fetch('/api/login', options)
+      if(res.status === 200) {
+        const data = await res.json()
+        const {access_token, refresh_token} = data
+        if(access_token !== '' && refresh_token !== '') {
+          localStorage.setItem("access_token", access_token)
+          localStorage.setItem("refresh_token", refresh_token)
+          loadUser()
+          if(getUsername()) {  
+            router.push('/profile')
+          }
+        }
+      }
     }
   }
-  const {state, loadUser  } = useUsers()
-  loadUser()
-  if(state.userData?.userName || state.userData.userName !== '') {
-    router.push('/')
-  }
- 
-
 </script>
 <style scoped>
 .container {

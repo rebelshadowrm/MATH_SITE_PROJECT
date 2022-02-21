@@ -18,19 +18,19 @@ const routes = [
         component: Profile
     },
     {
-    path: '/test',
-    name: 'Test',
-    component: Test
+        path: '/test',
+        name: 'Test',
+        component: Test
     },
     {
-    path: '/flashcards',
-    name: 'Flashcards',
-    component: Flashcards
+        path: '/flashcards',
+        name: 'Flashcards',
+        component: Flashcards
     },
     {
-    path: '/drills',
-    name: 'Drills',
-    component: Drills
+        path: '/drills',
+        name: 'Drills',
+        component: Drills
     },
     {
         path: '/login',

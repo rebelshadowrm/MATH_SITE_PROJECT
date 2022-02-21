@@ -45,4 +45,7 @@ export default {
 button {
     justify-self: end;
 }
+h1 {
+    font-size: var(--txt-lrg);
+}
 </style>

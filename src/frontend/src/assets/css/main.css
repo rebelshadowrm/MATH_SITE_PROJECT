@@ -134,8 +134,9 @@ p {
   --txt-med-fluid: clamp(1rem, 3vw, 1.5rem);
   --txt-lrg: 1.85rem;
   --txt-lrg-fluid: clamp(1.75rem, 4vw, 2.5rem );
-  --txt-xlrg: 3.35rem;
-  --txt-xlrg-fluid: clamp(2.75rem, 4vw, 4.5rem );
+  --txt-xlrg: 3.5rem;
+  --txt-xlrg-fluid: clamp(3rem, 5vw, 6rem );
+  --txt-xxl-fluid: clamp(7rem, 12vw, 14rem );
   --radius: 20px;
 
   --clr-bg: hsl(var(--clr-black-800));
@@ -149,7 +150,7 @@ p {
 ::-webkit-scrollbar {
   display: block;
   width: 0.5rem;
-  height: 0.35rem;
+  height: 0.45rem;
 }
 
 ::-webkit-scrollbar-track {
