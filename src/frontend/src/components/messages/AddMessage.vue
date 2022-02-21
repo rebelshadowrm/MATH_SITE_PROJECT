@@ -41,21 +41,26 @@ export default {
 </script>
 <style scoped>
 form {
-    display: grid;
-    grid-auto-flow: row;
-    padding: 0 1rem 1.25rem;
-    gap: 1rem;
-    place-items: center;
+  display: grid;
+  grid-auto-flow: row;
+  padding: 0 1rem 1.25rem;
+  gap: 1rem;
+  place-items: center;
+}
+.form-input {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 2rem);
 }
 input[type="text"] {
-    min-width: 75vw;
-    font-weight: 600;
-    font-size: 1.2rem;
-    padding: .45em .75em;
-    border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: .45em .75em;
+  border-radius: 6px;
 }
 input[type="submit"] {
-    min-width: 25vw;
+  min-width: 25vw;
+  max-width: 100%;
 }
 .btn {
   font-family: var(--ff-primary);
@@ -67,16 +72,12 @@ input[type="submit"] {
   border-radius: 6px;
   cursor: pointer;
 }
-.form-input {
-    display: flex;
-    flex-direction: column;
-}
 .error {
-    display: inline-block;
-    color: hsl(0, 100%, 40%);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: .3rem .1rem;
-    margin-bottom: -.2rem;
+  display: inline-block;
+  color: hsl(0, 100%, 40%);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: .3rem .1rem;
+  margin-bottom: -.2rem;
 }
 </style>

@@ -36,8 +36,8 @@ export default {
   font-weight: 700;
 }
 .messages {
-    display: grid;
-    gap: 1.7rem;
-    padding: 1.7rem;
+  display: grid;
+  gap: 1.7rem;
+  padding: 1.7rem;
 }
 </style>

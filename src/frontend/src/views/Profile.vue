@@ -1,24 +1,30 @@
 <template>
   <div class="profile-container" >
     <h1>{{user.userName}}'s Profile</h1>
-    <p>Name: {{user.firstName}} {{user.lastName}}<br>
-    Email: {{user.email}}
-    </p>
+    <div class="main">
+    <UserCard/>
+    <MessageComponent />
+    </div>
   </div>
 </template>
 
 <script>
-import useUsers from '../composables/users.js'
+
+import MessageComponent from "../components/messages/MessageComponent.vue";
+import UserCard from '../components/UserCard.vue'
 export default {
-  name: 'Profile'
+  name: 'Profile',
+  components: {
+    MessageComponent,
+    UserCard,
+  }
 }
 </script>
 <script setup>
+import useUsers from '../composables/users.js'
 const { state, loadUser } = useUsers()
 loadUser()
 const user = state.userData
-
-
 </script>
 <style scoped>
 .profile-container {
@@ -28,7 +34,13 @@ const user = state.userData
   gap: 2rem;
   padding: 1rem;
 }
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 h1 {
-  margin-left: 1rem;
+  text-align: center;
 }
 </style>

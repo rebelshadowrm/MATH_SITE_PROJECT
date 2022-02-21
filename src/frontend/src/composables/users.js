@@ -25,6 +25,9 @@ import { reactive, readonly, computed } from 'vue'
       getUsername: () => {
         return computed(() => state.userData?.userName)
       },
+      getEmail: () => {
+        return computed(() => state.userData?.email)
+      },
       getIsLoggedIn: () => {
         return computed(() => state.isLoggedIn)
       },
@@ -95,7 +98,7 @@ import { reactive, readonly, computed } from 'vue'
           }
         } else if (data.status === 200 || data.status === 201) {
           actions.updateError('')
-          actions.updateUserData( await data.json())
+          actions.updateUserData(await data.json())
         } else {
           actions.updateError(data)
         }

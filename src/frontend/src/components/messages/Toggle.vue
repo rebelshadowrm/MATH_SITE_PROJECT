@@ -1,8 +1,7 @@
 <template>
 <div class="container">
       <h1>{{ title }}</h1>
-      <Button 
-        v-show="homePage"
+      <Button
         @btnClick="$emit('toggleAddMessage')" 
         :text="showAddMessage ? 'Close' : 'Add Message'" 
         :bgColor="showAddMessage ? 'red' : 'green'"
@@ -12,7 +11,7 @@
 </template>
 
 <script>
-import Button from './Button.vue'
+import Button from '../Button.vue'
 export default {
     name: 'Toggle',
     props: {
@@ -22,15 +21,6 @@ export default {
     components: {
         Button
     },
-    computed: {
-        homePage() {
-            if(this.$route.path === '/') {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
 }
 </script>
 

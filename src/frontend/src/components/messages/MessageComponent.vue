@@ -1,12 +1,14 @@
 <template>
+  <div class="message-container">
     <Toggle @toggleAddMessage="toggleAddMessage" title="Messages" :showAddMessage="showAddMessage" />
     <AddMessage v-show="showAddMessage" @addMessage="addMessage" />
     <Messages @deleteMessage="deleteMessage" :messages="messages" />
+  </div>
 </template>
 
 <script>
 import Toggle from './Toggle.vue'
-import Messages from '/Messages.vue'
+import Messages from './Messages.vue'
 import AddMessage from './AddMessage.vue'
 export default {
   name: 'MessageComponent',
@@ -27,13 +29,11 @@ export default {
     },
     async fetchMessages() {
       const res = await fetch('/api/messages')
-      const data = await res.json()
-      return data
+      return res.json()
     },
     async fetchMessage(id) {
       const res = await fetch(`/api/messages/${id}`)
-      const data = await res.json()
-      return data
+      return res.json()
     },
     async addMessage(message) {
       const res = await fetch('api/messages', { 
@@ -50,8 +50,7 @@ export default {
       const res = await fetch(`api/messages/${id}`, { 
         method: 'UPDATE',
       })
-      const data = await res.json()
-      return data
+      return res.json()
     },
     async deleteMessage(id) {
       if (confirm('Are you sure?')) {
@@ -71,5 +70,8 @@ export default {
 </script>
 
 <style scoped>
-
+.message-container {
+  /*TODO: make more mobile friendly*/
+  width: 31rem;
+}
 </style>
