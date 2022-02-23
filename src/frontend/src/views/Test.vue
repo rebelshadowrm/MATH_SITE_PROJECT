@@ -9,6 +9,9 @@
 import QuestionBox from "../components/QuestionBox";
 export default {
   name: "Test",
+  created(){
+    document.title = "Tests"
+  },
   components: {
     QuestionBox,
   },

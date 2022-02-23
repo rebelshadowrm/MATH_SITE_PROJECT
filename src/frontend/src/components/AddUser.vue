@@ -97,19 +97,28 @@ const addUser = async (e) => {
 <style scoped>
   .add-user-form {
     display: grid;
-    padding: 2rem;
+    padding: 2rem 2.35rem;
     background: hsl(var(--clr-primary-200) / .1);
     backdrop-filter: blur(7px);
     border: 1px solid hsl(var(--clr-accent-400) / .5);
     border-radius: var(--radius);
-    gap: 1.2rem;
+    gap: 1.5rem 2rem;
     font-size: var(--txt-med);
+    grid-template-columns: 1fr 1fr;
+  }
+  @media only screen and (max-width: 45rem) {
+    .add-user-form {
+      grid-template-columns: 1fr;
+    }
   }
   .form-input {
     display: grid;
-    grid-template-columns: 10ch 1fr;
-    align-items: center;
+    grid-auto-flow: row;
     line-height: 1;
+    gap: .75rem;
+  }
+  .form-input label {
+    margin-left: .7rem;
   }
   .select {
     display: flex;
@@ -130,7 +139,6 @@ const addUser = async (e) => {
     grid-auto-flow: column;
     grid-template-columns: max-content 1fr;
     align-items: end;
-    padding: 1rem 0;
   }
   .admin label {
     color: hsl(var(--clr-accent-400) / .75);
@@ -151,6 +159,25 @@ const addUser = async (e) => {
     --checkbox-size: 1.5rem;
     width: var(--checkbox-size); height: var(--checkbox-size);
     accent-color: hsl(var(--clr-accent-400));
+  }
+  input[type='submit'] {
+    border-radius: var(--radius);
+    font-size: var(--txt-med);
+    font-weight: 700;
+    padding: .75em 0;
+    background-color: hsl(var(--clr-secondary-600) / .5);
+    color: hsl(var(--clr-accent-400) / .9);
+    border: 1px solid hsl(var(--clr-accent-400) / .7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-end;
+    cursor: pointer;
+    transition: filter ease-in 450ms;
+  }
+  input[type='submit']:hover,
+  input[type='submit']:focus-visible {
+    filter: brightness(1.35);
+    transition: filter ease-in 300ms;
   }
   select {
     font-size: var(--txt-med);

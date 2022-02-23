@@ -16,6 +16,9 @@ import UserCard from '../components/UserCard.vue'
 import AddUser from '../components/AddUser.vue'
 export default {
   name: 'Profile',
+  created(){
+    document.title = "Profile"
+  },
   components: {
     MessageComponent,
     AddUser,

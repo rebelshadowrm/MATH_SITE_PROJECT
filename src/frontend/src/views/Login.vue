@@ -9,6 +9,9 @@ import useUsers from '@/composables/users.js'
 import router from '@/router'
 export default {
   name: 'Login',
+  created(){
+    document.title = "Login"
+  },
   components: {
     LoginForm,
   }

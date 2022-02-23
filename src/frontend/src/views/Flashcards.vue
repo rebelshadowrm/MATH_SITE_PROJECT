@@ -13,6 +13,9 @@
 import Flashcard from '../components/Flashcard'
 export default {
     name: "Flashcards",
+    created(){
+      document.title = "Flashcards"
+    },
     components: {
       Flashcard,
     },

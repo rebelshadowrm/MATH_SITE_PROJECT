@@ -9,9 +9,12 @@
 import QuestionBox from "../components/QuestionBox";
 export default {
     name: "Drills",
-  components: {
-      QuestionBox,
-  },
+    created(){
+      document.title = "Drills"
+    },
+    components: {
+        QuestionBox,
+    },
   data() {
     return {
       drills: [
