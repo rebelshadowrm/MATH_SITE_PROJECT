@@ -1,5 +1,6 @@
 <template>
 <div class="card-container">
+  <SubjectChoice/>
   <Flashcard
       :key="flashcard.id" v-for="flashcard in this.flashcards"
       :question="flashcard.question"
@@ -11,12 +12,14 @@
 
 <script>
 import Flashcard from '../components/Flashcard'
+import SubjectChoice from "@/components/SubjectChoice";
 export default {
     name: "Flashcards",
     created(){
       document.title = "Flashcards"
     },
     components: {
+      SubjectChoice,
       Flashcard,
     },
     data() {
