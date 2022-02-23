@@ -148,6 +148,21 @@ p {
   --clr-text: hsl(var(--clr-white-400));
   --clr-border: hsl(var(--clr-white-800));
 }
+/* ##############
+      UTILITY
+   ############## */
+.multiplication {
+  background: var(--multiplication);
+}
+.division {
+  background: var(--division);
+}
+.addition {
+  background: var(--addition);
+}
+.subtraction {
+  background: var(--subtraction);
+}
 /*********************************************************************
                             SCROLL BAR STYLE
 ********************************************************************/
