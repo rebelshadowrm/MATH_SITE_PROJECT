@@ -118,14 +118,17 @@ const addUser = async (e) => {
     gap: .75rem;
   }
   .form-input label {
-    margin-left: .7rem;
+    margin-left: .8rem;
+    font-size: var(--txt-med);
+    text-transform: capitalize;
+    font-weight: 300;
   }
   .select {
     display: flex;
     flex-direction: column;
   }
   .select label {
-    padding: .25rem .5rem;
+    padding: .15rem .45rem;
   }
   .admin {
     display: flex;
@@ -154,6 +157,7 @@ const addUser = async (e) => {
     background: hsl(var(--clr-secondary-200) / .1);
     color: var(--clr-text);
     font-weight: 600;
+    border: 3px outset hsl(var(--clr-accent-400) / .5);
   }
   input[type='checkbox'] {
     --checkbox-size: 1.5rem;
@@ -163,16 +167,19 @@ const addUser = async (e) => {
   input[type='submit'] {
     border-radius: var(--radius);
     font-size: var(--txt-med);
+    font-family: var(--ff-serif);
     font-weight: 700;
     padding: .75em 0;
-    background-color: hsl(var(--clr-secondary-600) / .5);
-    color: hsl(var(--clr-accent-400) / .9);
-    border: 1px solid hsl(var(--clr-accent-400) / .7);
+    background-color: hsl(var(--clr-secondary-200) / .1);
+    color: hsl(var(--clr-accent-200) / .5);
+    -webkit-text-stroke: 1px hsl(var(--clr-accent-400) / .75);
+    border: 4px outset hsl(var(--clr-accent-400) / .75);
     text-transform: uppercase;
     letter-spacing: 1px;
     align-self: flex-end;
     cursor: pointer;
     transition: filter ease-in 450ms;
+
   }
   input[type='submit']:hover,
   input[type='submit']:focus-visible {
@@ -181,10 +188,18 @@ const addUser = async (e) => {
   }
   select {
     font-size: var(--txt-med);
+    font-weight: 500;
     background: hsl(var(--clr-secondary-200) / .1);
     border-radius: var(--radius);
     padding: .5rem;
     color: hsl(var(--clr-accent-400));
+    border: 2px outset hsl(var(--clr-accent-400) / .5);
+    cursor: pointer;
+    transition: filter ease-out 300ms;
+  }
+  select:hover {
+    filter: brightness(1.35);
+    transition: filter ease 300ms;
   }
 
 </style>
