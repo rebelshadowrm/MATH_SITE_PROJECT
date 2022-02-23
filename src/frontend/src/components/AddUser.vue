@@ -1,5 +1,5 @@
 <template>
-  <form class="add-user-form" @submit.prevent="addUser">
+  <form v-if="getRoles().value.filter(({name}) => name === 'ROLE_ADMIN').length > 0" class="add-user-form" @submit.prevent="addUser">
     <div class="form-input">
       <label for="first_name">first name</label>
       <input id="first_name" name="first_name" type="text" />
@@ -26,18 +26,20 @@
     </div>
     <div class="role-selection">
       <div class="select">
-      <label for="prime_role">Select type</label>
-      <select v-model="pRole" id="prime_role" name="prime_role">
-        <option value="ROLE_STUDENT">Student</option>
-        <option value="ROLE_PARENT">Parent</option>
-        <option value="ROLE_TEACHER">Teacher</option>
+      <label for="role">Select type</label>
+      <select id="role" name="role" @change="selected = $event.target.value" >
+        <option value=1>Student</option>
+        <option value=2>Parent</option>
+        <option value=3>Teacher</option>
+        <option value=4>Admin</option>
       </select>
       </div>
-      <div v-if="pRole !== 'ROLE_STUDENT'" class="admin">
-        <input id="admin" type="checkbox" name="admin_role" value="ROLE_ADMIN"/>
+      <div v-if="selected !== '1' && selected !== '4'" class="admin">
+        <input id="admin" type="checkbox" name="admin" value="true"/>
         <label for="admin">Admin</label>
       </div>
     </div>
+    <input type="submit" value="add user"/>
   </form>
 </template>
 <script>
@@ -46,39 +48,49 @@ export default {
 }
 </script>
 <script setup>
-import useUsers from '@/composables/users.js'
-const pRole = 'ROLE_STUDENT';
+import useUsers from '../composables/users.js'
+import {ref} from 'vue'
+
+const selected = ref('1')
+
+const { AuthHeader, getRoles  } = useUsers()
+
+const addUser = async (e) => {
+  const {
+      username,
+      password,
+      repeat_password,
+      email,
+      first_name,
+      last_name,
+      role,
+      admin
+  } = Object.fromEntries(new FormData(e.target))
+
+ const getRole = (role, admin) => {
+    if(role !== "ROLE_STUDENT" && admin === 'true') {
+      return [{ "id": role }, { "id": 4 }]
+    }
+    return [{ "id": role }]
+ }
 
 
-
-
-console.log(pRole)
-
-
-const { AuthGet  } = useUsers()
-
-const header = AuthGet()
-const username = ''
-const password= ''
-const email = ''
-const firstName = ''
-const lastName = ''
-const options = {
-  header,
-  body: {
-    id:null,
+  const body = {
+    "id": null,
     "username": username,
     "password": password,
     "email": email,
-    "first_name": firstName,
-    "last_name": lastName
+    "first_name": first_name,
+    "last_name": last_name,
+    "roles": getRole(role, admin)
   }
-}
+  const options = AuthHeader('POST', JSON.stringify(body))
 
-const addUser = async () => {
+  console.log(role, admin)
   console.log(options)
-//const userService = await fetch('/user/save', options)
-//console.log(userService)
+  const addUser = await fetch('api/user/save', options)
+  console.log(addUser)
+  console.log(await addUser.json())
 }
 
 </script>

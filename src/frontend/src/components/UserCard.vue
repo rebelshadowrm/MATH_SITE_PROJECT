@@ -37,6 +37,7 @@ const users = {
   border-radius: var(--radius);
   width: max-content;
   max-width: 100%;
+  max-height: max-content;
 }
 .image {
   background: transparent;

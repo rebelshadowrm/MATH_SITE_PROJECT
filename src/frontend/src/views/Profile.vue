@@ -42,6 +42,8 @@ const user = state.userData
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem 1rem;
 }
 h1 {
   text-align: center;

@@ -19,7 +19,7 @@ export default {
 </script>
 
 <script setup>
-import useUsers from '@/composables/users.js'
+import useUsers from '../composables/users.js'
 import router from '@/router'
   const { getIsLoggedIn, updateIsLoggedIn, loadUser  } = useUsers()
   loadUser()

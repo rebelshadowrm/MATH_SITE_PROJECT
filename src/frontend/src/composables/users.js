@@ -28,26 +28,33 @@ import { reactive, readonly, computed } from 'vue'
       getEmail: () => {
         return computed(() => state.userData?.email)
       },
+      getRoles: () => {
+        return computed(() => state.userData?.roles)
+      },
       getIsLoggedIn: () => {
         return computed(() => state.isLoggedIn)
       },
       getError: () => {
         return computed(() => state.error)
       },
-      AuthGet: () => {
+      AuthHeader: (type, body) => {
         return  {
-          method: 'GET',
+          method: `${type}`,
           headers: {
             'Authorization': 'Bearer ' + methods.getAccessToken(),
+            "Content-type": "application/json;charset=UTF-8"
           },
+          body
         }
       },
-      RefreshGet: () => {
+      RefreshHeader: (type, body) => {
         return  {
-          method: 'GET',
+          method: `${type}`,
           headers: {
             'Authorization': 'Bearer ' + methods.getRefreshToken(),
+            "Content-type": "application/json;charset=UTF-8"
           },
+          body
         }
       }
     }
@@ -87,7 +94,7 @@ import { reactive, readonly, computed } from 'vue'
         const data = await methods.getUserData()
         if(data.status === 401 || data.status === 403) {
           actions.updateError("Attempting to refresh token")
-          const response = await fetch('/api/token/refresh', getters.RefreshGet())
+          const response = await fetch('/api/token/refresh', getters.RefreshHeader('GET'))
           const {access_token} = await response.json()
           if(access_token !== undefined) {
             actions.updateAccessToken(access_token)
@@ -133,7 +140,7 @@ import { reactive, readonly, computed } from 'vue'
         const token = methods.getAccessToken()
         if(token !== undefined) {
           const {sub} = await methods.decodeJWT(token)
-          return await fetch(`/api/user/${sub}`, getters.AuthGet())
+          return await fetch(`/api/user/${sub}`, getters.AuthHeader('GET'))
         } else {
           throw new Error("Access token not available")
         }
