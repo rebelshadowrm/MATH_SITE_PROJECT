@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 
 @SpringBootApplication
-public class MathprojectApplication {
+public class         MathprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MathprojectApplication.class, args);
