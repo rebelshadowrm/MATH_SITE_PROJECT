@@ -37,6 +37,8 @@ header {
   position: relative;
   z-index: 1;
 }
+
+/*noinspection CssInvalidPropertyValue*/
 nav {
   display: flex;
   flex-direction: row;

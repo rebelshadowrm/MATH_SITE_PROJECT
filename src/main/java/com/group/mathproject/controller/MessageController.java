@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,8 +33,12 @@ public class MessageController {
     }
 
     @PostMapping("/messages")
-    public Message addMessage(@RequestBody Message msg) {
-        return messageService.saveMessage(msg);
+    public ResponseEntity<Message> addMessage(@RequestBody Message msg) {
+        URI uri = URI.create(ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/api/messages")
+                .toUriString());
+        return ResponseEntity.created(uri).body(messageService.saveMessage(msg));
     }
 
     @PutMapping(value="/messages/{id}")
@@ -40,7 +46,7 @@ public class MessageController {
                                  @RequestBody @NotNull Message newMsg) {
         Message msg = messageService.findById(id)
                                     .orElseThrow(()->new NotFoundException(
-                                            "Message with "+id+" is Not Found!"
+                                            "Message with " + id + " is Not Found!"
                                     ));
         msg.setMessage(newMsg.getMessage());
         return messageService.saveMessage(msg);
@@ -50,10 +56,10 @@ public class MessageController {
     public String deleteMessage(@PathVariable("id") Integer id) {
         Message msg = messageService.findById(id)
                                     .orElseThrow(()->new NotFoundException(
-                                            "Message with "+id+" is Not Found!"
+                                            "Message with " + id + " is Not Found!"
                                     ));
         messageService.deleteById(msg.getId());
-        return "Message with ID: "+id+" is deleted";
+        return "Message with ID: " + id + " is deleted";
     }
 
 }
