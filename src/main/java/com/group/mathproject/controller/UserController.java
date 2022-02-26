@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -50,7 +50,11 @@ public class UserController {
                 .fromCurrentContextPath()
                 .path("/api/user/save")
                 .toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+        User userExists = userService.getUser(user.getUsername());
+        if(userExists == null) {
+            return ResponseEntity.created(uri).body(userService.saveUser(user));
+        }
+        return ResponseEntity.unprocessableEntity().build();
     }
 
     @PostMapping("/role/save")

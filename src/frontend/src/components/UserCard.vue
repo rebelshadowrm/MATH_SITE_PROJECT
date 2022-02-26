@@ -43,10 +43,10 @@ const users = {
   background: transparent;
   border-radius: var(--radius);
   box-shadow:
-      inset -10px 0px 10px 0 hsl(var(--clr-accent-400) / .1),
-      inset 0px -10px 10px 0 hsl(var(--clr-accent-400) / .1),
-      inset 0px 10px 10px 0 hsl(var(--clr-accent-600) / .2),
-      inset 10px 0px 10px 0 hsl(var(--clr-accent-600) / .2);
+      inset -10px 0 10px 0 hsl(var(--clr-accent-400) / .1),
+      inset 0 -10px 10px 0 hsl(var(--clr-accent-400) / .1),
+      inset 0 10px 10px 0 hsl(var(--clr-accent-600) / .2),
+      inset 10px 0 10px 0 hsl(var(--clr-accent-600) / .2);
   /* to prevent screen resizing on load*/
   min-height: 400px;
   min-width: 350px;

@@ -1,2 +1,2 @@
 # MATH_SITE_PROJECT
-Capstone Mathmatics website project
+Capstone Mathematics website project

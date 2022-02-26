@@ -12,7 +12,7 @@
 
 <script>
 import Flashcard from '../components/Flashcard'
-import SubjectChoice from "@/components/SubjectChoice";
+import SubjectChoice from "../components/SubjectChoice";
 export default {
     name: "Flashcards",
     created(){

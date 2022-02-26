@@ -1,4 +1,4 @@
-package com.group.mathproject.controller;
+package com.group.mathproject.model;
 
 import lombok.Data;
 

@@ -1,8 +1,6 @@
 package com.group.mathproject.service.implementation;
 
-import com.group.mathproject.controller.QuestionBoolForm;
-import com.group.mathproject.model.Question;
-import com.group.mathproject.model.UserQuestion;
+import com.group.mathproject.model.*;
 import com.group.mathproject.repository.QuestionRepository;
 import com.group.mathproject.repository.UserQuestionRepository;
 import com.group.mathproject.repository.UserRepository;
@@ -41,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getSomeQuestions(int numOfQuestions){
+    public List<Question> getSomeQuestions(Integer numOfQuestions){
         //returns only amount of questions specified in default order
         return questionRepository.findAll().subList(0, numOfQuestions - 1);
     }
@@ -58,12 +56,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Optional<Question> findById(int id) {
+    public Optional<Question> findById(Integer id) {
         return questionRepository.findById(id);
     }
 
     @Override
-    public void deleteQuestionById(int id) {
+    public void deleteQuestionById(Integer id) {
         questionRepository.deleteById(id);
     }
 
@@ -95,7 +93,42 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<UserQuestion> addQuestionToUser(List<QuestionBoolForm> qbfs, String username) {
+    public Optional<UserQuestion> getUserQuestionById(Integer id) {
+        return userQuestionRepository.findById(id);
+    }
+
+    @Override
+    public UserQuestion saveUserQuestion(UserQuestion userQuestion) {
+        return userQuestionRepository.save(userQuestion);
+    }
+
+    @Override
+    public List<Question> getTeacherMadeQuestions() {
+        List<UserQuestion> userQuestions = userQuestionRepository.findAll();
+        List<Question> questions = new ArrayList<>();
+        for(UserQuestion userQuestion : userQuestions ) {
+            var roles = userQuestion.getUser().getRoles();
+            for(Role role : roles) {
+                if(role.getName().equalsIgnoreCase("ROLE_TEACHER")) {
+                    questions.add(userQuestion.getQuestion());
+                }
+            }
+        }
+        return questions;
+    }
+
+    @Override
+    public Question saveQuestionToUser(String username, Question question) {
+        var user = userRepository.findByUsername(username);
+        var userQuestion = new UserQuestion();
+        userQuestion.setUser(user);
+        userQuestion.setQuestion(question);
+        userQuestionRepository.save(userQuestion);
+        return userQuestion.getQuestion();
+    }
+
+    @Override
+    public List<UserQuestion> addQuestionsToUser(List<QuestionBoolForm> qbfs, String username) {
         var user = userRepository.findByUsername(username);
         var userQuestions = new ArrayList<UserQuestion>();
         for(QuestionBoolForm qbf : qbfs) {

@@ -2,18 +2,23 @@ package com.group.mathproject.controller;
 
 import com.group.mathproject.exception.NotFoundException;
 import com.group.mathproject.model.Question;
+import com.group.mathproject.model.QuestionBoolForm;
 import com.group.mathproject.model.UserQuestion;
 import com.group.mathproject.service.QuestionService;
-import com.group.mathproject.service.UserService;
+import jdk.jfr.Timestamp;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 //yo mama
 
@@ -56,18 +61,47 @@ public class QuestionsController {
         return ResponseEntity.created(uri).body(questionService.saveQuestion(question));
     }
 
+
+    @PutMapping("/questions/teacher/{id}")
+    public ResponseEntity<Question> updateUserQuestionById(
+                                    @PathVariable("id") Integer num,
+                                    @RequestBody Question question) {
+        Optional<UserQuestion> userQuestion = questionService.getUserQuestionById(num);
+        userQuestion.orElseThrow().setQuestion(question);
+        var timestamp = LocalDateTime.now();
+        userQuestion.orElseThrow().setDateTime(timestamp);
+        return ResponseEntity.ok().body(questionService
+                                  .saveUserQuestion(userQuestion
+                                  .orElseThrow()).getQuestion());
+    }
+
+    @GetMapping("/questions/by/teacher")
+    public ResponseEntity<List<Question>> getTeacherMadeQuestions() {
+        return ResponseEntity.ok().body(questionService.getTeacherMadeQuestions());
+    }
+
+    @PostMapping("/questions/teacher/{username}")
+    public ResponseEntity<Question>saveQuestionToUser(
+            @PathVariable("username") String username,
+            @RequestBody Question question) {
+        URI uri = URI.create(ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/api/teacher/questions")
+                .toUriString());
+        var q = questionService.saveQuestionToUser(username, question);
+        return ResponseEntity.created(uri).body(q);
+    }
+
     @PostMapping("/questions/{username}")
-    public ResponseEntity<UserQuestion>addQuestionsToUser(
+    public ResponseEntity<List<UserQuestion>>addQuestionsToUser(
             @PathVariable("username") String username,
             @RequestBody List<QuestionBoolForm> qbf) {
         URI uri = URI.create(ServletUriComponentsBuilder
                      .fromCurrentContextPath()
                      .path("/api/questions")
                      .toUriString());
-
         return ResponseEntity.created(uri)
-                             .body(questionService
-                             .addQuestionToUser(qbf, username));
+                .body(questionService.addQuestionsToUser(qbf, username));
     }
 
     @PutMapping("/questions/{id}")
@@ -78,6 +112,13 @@ public class QuestionsController {
                         "Question with id of " + id + " not found!"
                 ));
         qu.setQuestion(newQuestion.getQuestion());
+        qu.setDifficulty(newQuestion.getDifficulty());
+        qu.setSubject(newQuestion.getSubject());
+        qu.setAnswer1(newQuestion.getAnswer1());
+        qu.setAnswer2(newQuestion.getAnswer2());
+        qu.setAnswer3(newQuestion.getAnswer3());
+        qu.setAnswer4(newQuestion.getAnswer4());
+        qu.setCorrectAnswer(newQuestion.getCorrectAnswer());
         return questionService.saveQuestion(qu);
     }
 

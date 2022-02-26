@@ -24,7 +24,7 @@ export default {
 .btn {
   font-family: var(--ff-primary);
   font-weight: 700;
-  text-shadow: 1px 1px 0px hsl(0, 0%, 0%, .3);
+  text-shadow: 1px 1px 0 hsl(0, 0%, 0%, .3);
   letter-spacing: 1px;
   font-size: var(--txt-med);
   padding: .4em .9em;

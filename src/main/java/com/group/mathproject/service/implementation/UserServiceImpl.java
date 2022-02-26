@@ -1,12 +1,14 @@
 package com.group.mathproject.service.implementation;
 
+import com.group.mathproject.model.Experience;
+import com.group.mathproject.model.Question;
 import com.group.mathproject.model.Role;
 import com.group.mathproject.model.User;
+import com.group.mathproject.repository.ExperienceRepository;
 import com.group.mathproject.repository.RoleRepository;
 import com.group.mathproject.repository.UserRepository;
 import com.group.mathproject.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,9 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ExperienceRepository experienceRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,7 +46,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        User newUser = userRepository.save(user);
+        Experience exp = new Experience();
+        Set<Question> qs = new HashSet<>();
+        exp.setUser(user);
+        exp.setQuestions(qs);
+        experienceRepository.save(exp);
+        return newUser;
     }
 
     @Override

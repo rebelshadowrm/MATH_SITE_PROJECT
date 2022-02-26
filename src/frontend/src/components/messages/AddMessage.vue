@@ -65,7 +65,7 @@ input[type="submit"] {
 .btn {
   font-family: var(--ff-primary);
   font-weight: 900;
-  text-shadow: 1px 1px 0px hsl(0, 0%, 0%, .3);
+  text-shadow: 1px 1px 0 hsl(0, 0%, 0%, .3);
   letter-spacing: 1px;
   font-size: 1.1rem;
   padding: .55em 1.2em;

@@ -20,12 +20,12 @@ export default {
 
 <script setup>
 import useUsers from '../composables/users.js'
-import router from '@/router'
+import router from '../router'
   const { getIsLoggedIn, updateIsLoggedIn, loadUser  } = useUsers()
   loadUser()
   const loggedIn = getIsLoggedIn()
   const logout = (e) => {
-    e.preventDefault
+    e.preventDefault()
     updateIsLoggedIn(false)
     router.push('/')
   }

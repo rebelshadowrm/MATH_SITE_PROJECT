@@ -4,9 +4,9 @@
   </div>
 </template>
 <script>
-import LoginForm from '@/components/LoginForm.vue'
-import useUsers from '@/composables/users.js'
-import router from '@/router'
+import LoginForm from '../components/LoginForm.vue'
+import useUsers from '../composables/users.js'
+import router from '../router'
 export default {
   name: 'Login',
   created(){
@@ -36,9 +36,9 @@ export default {
         if(access_token !== '' && refresh_token !== '') {
           localStorage.setItem("access_token", access_token)
           localStorage.setItem("refresh_token", refresh_token)
-          loadUser()
+          await loadUser()
           if(getUsername()) {  
-            router.push('/profile')
+            await router.push('/profile')
           }
         }
       }
