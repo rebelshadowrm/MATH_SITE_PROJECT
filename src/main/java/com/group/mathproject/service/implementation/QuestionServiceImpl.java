@@ -1,5 +1,6 @@
 package com.group.mathproject.service.implementation;
 
+import com.group.mathproject.model.QuestionForm;
 import com.group.mathproject.model.*;
 import com.group.mathproject.repository.QuestionRepository;
 import com.group.mathproject.repository.UserQuestionRepository;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,11 +45,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> generateQuestions(Integer number, String Subject, Integer Difficulty) {
+    public List<Question> generateQuestions(List<QuestionForm> forms) {
         List<Question> questions = new ArrayList<>();
-        for(int i = 0; i < number; i++) {
+        for(QuestionForm form : forms) {
             Question q = new Question();
-            q.setRandomQuestion(Subject, Difficulty);
+            q.setRandomQuestion(form.getSubject(), form.getDifficulty());
             questions.add(q);
         }
         return questionRepository.saveAll(questions);

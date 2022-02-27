@@ -28,28 +28,28 @@ export default {
 <style scoped>
 .card {
   --card-color: hsl(var(--clr-primary-200) / .1);
-  --card-height: 25rem;
-  --card-width: 40ch;
+  --card-width: 33ch;
+  --aspect: 1;
   perspective: 200vw;
-  min-height: var(--card-height);
-  width: 100%;
-  max-width: var(--card-width);
+  width: var(--card-width);
   border-radius: var(--radius);
   background-color: transparent;
+  aspect-ratio: var(--aspect);
 }
 .content {
   position: relative;
-  min-height: var(--card-height);
   width: 100%;
+  height: 100%;
   max-width: var(--card-width);
   transition: transform 1s;
   transform-style: preserve-3d;
   border-radius: var(--radius);
+
 }
 .card-front,
 .card-back {
   display: grid;
-  min-height: var(--card-height);
+  height: 100%;
   width: 100%;
   max-width: var(--card-width);
   grid-template-rows: max-content 1fr;
@@ -65,6 +65,7 @@ export default {
   backface-visibility: hidden;
   user-select: none;
   pointer-events: none;
+  aspect-ratio: var(--aspect);
 }
 .card-back {
   transform: rotateY(180deg);
@@ -77,11 +78,11 @@ export default {
   font-size: var(--txt-small);
 }
 .card-title {
-  font-size: var(--txt-lrg-fluid);
+  font-size: var(--txt-lrg);
   font-weight: 700;
 }
 .card-description {
-  font-size: var(--txt-med-fluid);
+  font-size: var(--txt-lrg);
   font-weight: 300;
 }
 .card-icon {

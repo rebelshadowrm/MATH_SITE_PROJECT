@@ -3,14 +3,11 @@ package com.group.mathproject.controller;
 import com.group.mathproject.exception.NotFoundException;
 import com.group.mathproject.model.Question;
 import com.group.mathproject.model.QuestionBoolForm;
+import com.group.mathproject.model.QuestionForm;
 import com.group.mathproject.model.UserQuestion;
 import com.group.mathproject.service.QuestionService;
-import jdk.jfr.Timestamp;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -38,13 +35,10 @@ public class QuestionsController {
         return questionService.getSomeQuestions(number);
     }
 
-    @PostMapping("/questions/generate/{num}")
-    public ResponseEntity<List<Question>> generateQuestions(
-            @PathVariable("num") Integer number,
-            @RequestBody QuestionForm form) {
+    @PostMapping("/questions/generate")
+    public ResponseEntity<List<Question>> generateQuestions(@RequestBody List<QuestionForm> form) {
         return ResponseEntity.ok()
-                .body(questionService.generateQuestions(number,
-                        form.getSubject(), form.getDifficulty()));
+                .body(questionService.generateQuestions(form));
     }
 
     @GetMapping("/questions/user/{username}")
@@ -132,10 +126,5 @@ public class QuestionsController {
         return "Question with ID: " + id + " was deleted";
     }
 
-}
-@Data
-class QuestionForm {
-    String subject;
-    Integer difficulty;
 }
 

@@ -1,5 +1,6 @@
 package com.group.mathproject.service;
 
+import com.group.mathproject.model.QuestionForm;
 import com.group.mathproject.model.QuestionBoolForm;
 import com.group.mathproject.model.Question;
 import com.group.mathproject.model.UserQuestion;
@@ -12,7 +13,7 @@ public interface QuestionService {
     List<Question> saveQuestions(List<Question> questions);
     List<Question> getAllQuestions();
     List<Question> getSomeQuestions(Integer numOfQuestions);
-    List<Question> generateQuestions(Integer number, String Subject, Integer Difficulty);
+    List<Question> generateQuestions(List<QuestionForm> form);
     Optional<Question> findById(Integer id);
     void deleteQuestionById(Integer id);
     void deleteQuestion(Question question);

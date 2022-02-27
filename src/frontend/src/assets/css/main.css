@@ -135,8 +135,8 @@ p {
   --txt-lrg: 1.85rem;
   --txt-lrg-fluid: clamp(1.75rem, 4vw, 2.5rem );
   --txt-xlrg: 3.5rem;
-  --txt-xlrg-fluid: clamp(3rem, 5vw, 6rem );
-  --txt-xxl-fluid: clamp(7rem, 12vw, 14rem );
+  --txt-xlrg-fluid: clamp(2.5rem, 10vw, 6rem );
+  --txt-xxl-fluid: clamp(4rem, 20vw, 12rem );
   --radius: 20px;
 
   --subtraction: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgdmlld0JveD0iMCAwIDQ0OCA1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQxNiAyMDhIMzJjLTE3LjY3IDAtMzIgMTQuMzMtMzIgMzJ2MzJjMCAxNy42NyAxNC4zMyAzMiAzMiAzMmgzODRjMTcuNjcgMCAzMi0xNC4zMyAzMi0zMnYtMzJjMC0xNy42Ny0xNC4zMy0zMi0zMi0zMnoiLz48L3N2Zz4=);
@@ -153,22 +153,22 @@ p {
    ############## */
 .multiplication {
   background: var(--multiplication) no-repeat;
-  background-size: 8rem 8rem;
+  background-size: 6rem 6rem;
   aspect-ratio: 1;
 }
 .division {
   background: var(--division) no-repeat;
-  background-size: 8rem 8rem;
+  background-size: 6rem 6rem;
   aspect-ratio: 1;
 }
 .addition {
   background: var(--addition) no-repeat;
-  background-size: 8rem 8rem;
+  background-size: 6rem 6rem;
   aspect-ratio: 1;
 }
 .subtraction {
   background: var(--subtraction) no-repeat;
-  background-size: 8rem 8rem;
+  background-size: 6rem 6rem;
   aspect-ratio: 1;
 }
 /*********************************************************************
