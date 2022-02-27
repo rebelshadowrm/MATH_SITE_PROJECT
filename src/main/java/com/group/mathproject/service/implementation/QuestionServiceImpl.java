@@ -121,10 +121,10 @@ public class QuestionServiceImpl implements QuestionService {
     public Question saveQuestionToUser(String username, Question question) {
         var user = userRepository.findByUsername(username);
         var userQuestion = new UserQuestion();
+        var newQuestion = questionRepository.save(question);
         userQuestion.setUser(user);
-        userQuestion.setQuestion(question);
-        userQuestionRepository.save(userQuestion);
-        return userQuestion.getQuestion();
+        userQuestion.setQuestion(newQuestion);
+        return userQuestionRepository.save(userQuestion).getQuestion();
     }
 
     @Override

@@ -28,7 +28,7 @@ export default {
   methods: {
     async prepareDrills() {
       const {AuthHeader} = useUsers()
-      const res = await fetch('/api/questions', AuthHeader('GET'))
+      const res = await fetch('/api/questions/by/teacher', AuthHeader('GET'))
       this.questions = await res.json()
     },
     async submitted(response) {
@@ -56,6 +56,10 @@ export default {
   max-width: 65ch;
 }
 h1 {
-  margin-left: 1rem;
+  font-size: var(--txt-xlrg-fluid);
+  font-family: var(--ff-serif);
+  letter-spacing: 2px;
+  color: hsl(var(--clr-white-200) / .1);
+  -webkit-text-stroke: 1px hsl(var(--clr-accent-400) / .75);
 }
 </style>

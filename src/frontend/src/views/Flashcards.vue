@@ -125,8 +125,8 @@ h1 {
   font-size: var(--txt-xlrg-fluid);
   font-family: var(--ff-serif);
   letter-spacing: 2px;
-  color: hsl(var(--clr-white-200) / .3);
-  -webkit-text-stroke: 1px hsl(var(--clr-accent-400) / .5);
+  color: hsl(var(--clr-white-200) / .1);
+  -webkit-text-stroke: 1px hsl(var(--clr-accent-400) / .75);
 }
 .flashcards-container {
   padding: 2rem;
