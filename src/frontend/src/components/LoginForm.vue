@@ -1,6 +1,7 @@
 <template>
 <form @submit.prevent="onSubmit" >
   <h1>Login</h1>
+  <span class="error">{{emptyErr === '' ? errorMsg : emptyErr}}</span>
   <div>
     <label for="username">username</label>
     <input v-model="username" id="username" type="text" name="username" />
@@ -16,18 +17,26 @@
 <script>
 export default {
   name: 'LoginForm',
+  props: {
+    errorMsg: String,
+  },
   data() {
     return {
       username: '',
       password: '',
-      formData: [],
+      emptyErr: '',
     }
   },
   methods: {
     onSubmit(e) {
-      this.$emit('onSubmit', e)
-      this.username = ''
-      this.password = ''
+      this.emptyErr = ''
+      if(this.username !== '' && this.password !== '') {
+        this.$emit('onSubmit', e)
+        this.username = ''
+        this.password = ''
+      } else {
+        this.emptyErr = "Fields cannot be empty!"
+      }
     }
   },
 }
@@ -47,6 +56,7 @@ form {
   border-radius: var(--radius);
   max-width: 50ch;
   width: 100%;
+  position: relative;
 }
 input[type="submit"] {
   place-self: start;
@@ -91,5 +101,13 @@ label {
   font-size: 2rem;
   font-weight: 700;
   text-transform: capitalize;
+}
+.error {
+  font-size: var(--txt-med);
+  font-weight: 600;
+  color: hsl(0, 96%, 46%);
+  position: absolute;
+  inset: 4rem 3rem auto auto;
+  pointer-events: none;
 }
 </style>

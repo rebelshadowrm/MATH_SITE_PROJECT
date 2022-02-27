@@ -26,16 +26,17 @@ export default {
 
 <style scoped>
 .container {
-    padding: 1rem 3rem;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    gap: 3rem;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
 }
 button {
-    justify-self: end;
+  justify-self: end;
 }
 h1 {
-    font-size: var(--txt-lrg);
+  font-size: var(--txt-lrg);
 }
 </style>

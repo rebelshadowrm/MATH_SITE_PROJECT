@@ -1,5 +1,6 @@
 <template>
   <form v-if="getRoles().value.filter(({name}) => name === 'ROLE_ADMIN').length > 0" class="add-user-form" @submit.prevent="addUser">
+    <span class="error">{{errorMsg}}</span>
     <div class="form-input">
       <label for="first_name">first name</label>
       <input id="first_name" name="first_name" type="text" />
@@ -51,7 +52,9 @@ export default {
 import useUsers from '../composables/users.js'
 import {ref} from 'vue'
 
-const selected = ref('1')
+let selected = ref('1')
+let errorMsg = ref('')
+
 
 const { AuthHeader, getRoles  } = useUsers()
 
@@ -73,7 +76,9 @@ const addUser = async (e) => {
     }
     return [{ "id": role }]
  }
-
+ const getIdElem = (elem) => {
+    return document.querySelector(`#${elem}`)
+ }
 
   const body = {
     "id": null,
@@ -84,13 +89,38 @@ const addUser = async (e) => {
     "last_name": last_name,
     "roles": getRole(role, admin)
   }
-  const options = AuthHeader('POST', JSON.stringify(body))
-
-  console.log(role, admin)
-  console.log(options)
-  const addUser = await fetch('api/user/save', options)
-  console.log(addUser)
-  console.log(await addUser.json())
+  if( username !== '' &&
+      password !== '' &&
+      repeat_password !== '' &&
+      email !== '' &&
+      first_name !== '' &&
+      last_name !== '' &&
+      role !== '' &&
+      admin !== ''
+  ) {
+    if(password === repeat_password) {
+      const options = AuthHeader('POST', JSON.stringify(body))
+      const addUser = await fetch('api/user/save', options)
+      if(addUser.status === 201) {
+        getIdElem("username").value = ""
+        getIdElem("password").value = ""
+        getIdElem("repeat_password").value = ""
+        getIdElem("email").value = ""
+        getIdElem("first_name").value = ""
+        getIdElem("last_name").value = ""
+      } else if (addUser.status === 422) {
+        errorMsg.value = "Username is in use"
+      } else {
+        errorMsg.value = "Something went wrong, try again!"
+      }
+    } else {
+      errorMsg.value = "Password doesn't match"
+      getIdElem("password").value = ""
+      getIdElem("repeat_password").value = ""
+    }
+  } else {
+    errorMsg.value = "Fields cannot be empty"
+  }
 }
 
 </script>
@@ -201,5 +231,14 @@ const addUser = async (e) => {
     filter: brightness(1.35);
     transition: filter ease 300ms;
   }
-
+  .error {
+    font-size: var(--txt-med);
+    font-weight: 600;
+    color: hsl(0, 96%, 46%);
+    position: absolute;
+    inset: 0 auto auto auto;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+  }
 </style>

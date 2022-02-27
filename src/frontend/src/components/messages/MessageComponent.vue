@@ -71,7 +71,6 @@ export default {
 
 <style scoped>
 .message-container {
-  /*TODO: make more mobile friendly*/
-  width: 31rem;
+  max-width: 100%;
 }
 </style>
