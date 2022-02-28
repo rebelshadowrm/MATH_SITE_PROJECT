@@ -5,11 +5,11 @@ Capstone Mathematics website project
 ******************
 ########### ACCOUNTS #############  
 ******************  
-username: Admin
+username: Admin  
 password: password
 ******************
-username: Student
+username: Student  
 password: password
 *****************
-username: Teacher
+username: Teacher  
 password: password
