@@ -7,6 +7,7 @@ import Drills from '../views/Drills.vue'
 import Login from '../views/Login'
 import QuestionEditor from "../views/QuestionEditor"
 import useUsers from '../composables/users'
+import Leaderboard from "../views/Leaderboard";
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         name: 'UserProfile',
         component: Profile,
         props: true
+    },
+    {
+        path: '/leaderboard',
+        name: 'Leaderboard',
+        component: Leaderboard
     },
     {
         path: '/test',

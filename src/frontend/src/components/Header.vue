@@ -3,6 +3,7 @@
     <nav id="nav">
       <router-link  v-if="loggedIn === false" to="/">Home</router-link>
       <router-link  v-if="loggedIn" to="/profile">Profile</router-link>
+      <router-link  v-if="loggedIn" to="/leaderboard">Leaderboard</router-link>
       <router-link  to="/test"
           v-if="loggedIn  &&
                 roles.filter(({name}) => name === 'ROLE_STUDENT').length > 0 ||
