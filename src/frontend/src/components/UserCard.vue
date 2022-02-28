@@ -1,28 +1,64 @@
 <template>
+
 <div class="card">
-  <div class="image">
+  <div v-if="users.username !== undefined" class="image">
     <img src="https://picsum.photos/350/400" />
+  </div>
+  <div v-if="users.username === undefined">
+    <h1>Sorry! Not Found</h1>
   </div>
   <div class="user-info" v-for="(user,field) in users" :key="field" >
     <p class="field">{{field}}:</p>
-    <p class="value">{{user.value}}</p>
+    <p class="value">{{user}}</p>
   </div>
 </div>
 </template>
 
 <script>
+import useUsers from '../composables/users.js'
 export default {
   name: "UserCard.vue",
-}
-</script>
-<script setup>
-import useUsers from '../composables/users.js'
-const { loadUser, getFullName, getUsername, getEmail } = useUsers()
-loadUser()
-const users = {
-  username : getUsername(),
-  fullName : getFullName(),
-  email : getEmail()
+  props: {
+    username: String,
+  },
+  data() {
+    return {
+      users: {}
+    }
+  },
+  created() {
+    if(this.username === undefined) {
+      this.stateUser()
+    } else {
+      const fetch = this.fetchUser(this.username)
+      if( fetch === null) { this.stateUser() }
+    }
+  },
+  methods: {
+    async fetchUser(username) {
+      const {AuthHeader} = useUsers()
+      const res = await fetch(`/api/user/${username}`, AuthHeader('GET'))
+      if(res.status === 200) {
+        const data = await res.json()
+        this.users = {
+          username: data.username,
+          fullName: `${data.first_name} ${data.last_name}`,
+          email: data.email
+        }
+      } else {
+        return null
+      }
+    },
+    async stateUser() {
+      const { loadUser, getFullName, getUsername, getEmail,  } = useUsers()
+      await loadUser()
+      this.users = {
+        username: getUsername(),
+        fullName: getFullName(),
+        email: getEmail()
+      }
+    }
+  }
 }
 </script>
 

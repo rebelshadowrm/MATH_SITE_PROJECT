@@ -3,9 +3,26 @@
     <nav id="nav">
       <router-link  v-if="loggedIn === false" to="/">Home</router-link>
       <router-link  v-if="loggedIn" to="/profile">Profile</router-link>
-      <router-link  v-if="loggedIn" to="/test">Tests</router-link>
-      <router-link  v-if="loggedIn" to="/flashcards">Flashcards</router-link>
-      <router-link  v-if="loggedIn" to="/drills">Drills</router-link>
+      <router-link  to="/test"
+          v-if="loggedIn  &&
+                roles.filter(({name}) => name === 'ROLE_STUDENT').length > 0 ||
+                roles.filter(({name}) => name === 'ROLE_ADMIN').length > 0"
+      >Tests</router-link>
+      <router-link  to="/flashcards"
+          v-if="loggedIn &&
+           roles.filter(({name}) => name === 'ROLE_STUDENT').length > 0 ||
+           roles.filter(({name}) => name === 'ROLE_ADMIN').length > 0"
+      >Flashcards</router-link>
+      <router-link  to="/drills"
+          v-if="loggedIn &&
+           roles.filter(({name}) => name === 'ROLE_STUDENT').length > 0 ||
+           roles.filter(({name}) => name === 'ROLE_ADMIN').length > 0"
+      >Drills</router-link>
+      <router-link  to="/questions"
+          v-if="loggedIn &&
+           roles.filter(({name}) => name === 'ROLE_TEACHER').length > 0 ||
+           roles.filter(({name}) => name === 'ROLE_ADMIN').length > 0"
+      >Questions</router-link>
       <router-link  v-if="loggedIn === false" to="/login">Login</router-link>
       <router-link  v-if="loggedIn" to="/login" @click="logout" >Logout</router-link>
     </nav>
@@ -21,8 +38,9 @@ export default {
 <script setup>
 import useUsers from '../composables/users.js'
 import router from '../router'
-  const { getIsLoggedIn, updateIsLoggedIn, loadUser  } = useUsers()
+  const { getIsLoggedIn, updateIsLoggedIn, loadUser, getRoles  } = useUsers()
   loadUser()
+  const roles = getRoles()
   const loggedIn = getIsLoggedIn()
   const logout = (e) => {
     e.preventDefault()

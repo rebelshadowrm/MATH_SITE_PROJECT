@@ -61,6 +61,7 @@ public class QuestionsController {
                                     @PathVariable("id") Integer num,
                                     @RequestBody Question question) {
         Optional<UserQuestion> userQuestion = questionService.getUserQuestionById(num);
+        questionService.saveQuestion(question);
         userQuestion.orElseThrow().setQuestion(question);
         var timestamp = LocalDateTime.now();
         userQuestion.orElseThrow().setDateTime(timestamp);

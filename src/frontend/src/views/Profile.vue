@@ -1,10 +1,10 @@
 <template>
   <div class="profile-container" >
-    <h1>{{getUsername().value}}'s Profile</h1>
+    <h1>{{name !== null ? name : getUsername().value}}'s Profile</h1>
     <div class="main">
-    <UserCard/>
-    <MessageComponent/>
-    <AddUser class="addUser"/>
+    <UserCard :username="username" />
+    <MessageComponent v-if="username === undefined"/>
+    <AddUser v-if="username === undefined" class="addUser"/>
     </div>
   </div>
 </template>
@@ -14,20 +14,49 @@
 import MessageComponent from "../components/messages/MessageComponent.vue";
 import UserCard from '../components/UserCard.vue'
 import AddUser from '../components/AddUser.vue'
+import useUsers from "../composables/users";
 export default {
   name: 'Profile',
-  created(){
+  props: {
+    username: String,
+  },
+  data() {
+    return {
+      name: 'Not Found',
+    }
+  },
+  async created(){
     document.title = "Profile"
+    if(this.username !== undefined ) {
+      const check = await this.checkUsername(this.username)
+      if (check?.username !== undefined) {
+        this.name = check?.username
+      }
+    } else {
+      this.name = null
+    }
   },
   components: {
     MessageComponent,
     AddUser,
     UserCard,
+  },
+  methods: {
+    async checkUsername(username) {
+      try {
+        const {AuthHeader} = useUsers()
+        const res = await fetch(`/api/user/${username}`, AuthHeader('GET'))
+        if(res.status === 200) {
+          return await res.json()
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
   }
 }
 </script>
 <script setup>
-import useUsers from '../composables/users.js'
 const { getUsername, loadUser } = useUsers()
 loadUser()
 </script>

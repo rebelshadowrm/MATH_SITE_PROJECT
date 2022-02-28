@@ -5,6 +5,8 @@ import Test from '../views/Test.vue'
 import Flashcards from '../views/Flashcards.vue'
 import Drills from '../views/Drills.vue'
 import Login from '../views/Login'
+import QuestionEditor from "../views/QuestionEditor"
+import useUsers from '../composables/users'
 
 const routes = [
     {
@@ -15,7 +17,13 @@ const routes = [
     {
         path: '/profile',
         name: 'Profile',
-        component: Profile
+        component: Profile,
+    },
+    {
+        path: '/profile/:username',
+        name: 'UserProfile',
+        component: Profile,
+        props: true
     },
     {
         path: '/test',
@@ -33,6 +41,11 @@ const routes = [
         component: Drills
     },
     {
+        path: '/questions',
+        name: 'QuestionEditor',
+        component: QuestionEditor
+    },
+    {
         path: '/login',
         name: 'Login',
         component: Login
@@ -43,6 +56,20 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+})
+
+router.beforeEach(async(to) => {
+    const {getIsLoggedIn} = useUsers()
+    if (
+        !getIsLoggedIn().value &&
+        to.name !== 'Login' &&
+        to.name !== 'Home'
+    ) {
+        return { name: 'Login'}
+    }
+
+
+
 })
 
 export default router

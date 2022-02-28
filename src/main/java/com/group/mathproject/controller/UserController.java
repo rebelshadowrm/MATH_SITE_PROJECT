@@ -40,8 +40,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public User getUser(@PathVariable("username") String username) {
-        return userService.getUser(username);
+    public ResponseEntity<User> getUser(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.getUser(username));
     }
 
     @PostMapping("/user/save")
