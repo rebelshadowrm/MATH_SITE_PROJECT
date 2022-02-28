@@ -3,8 +3,8 @@ Capstone Mathematics website project
 
 
 ##################################  
-            ACCOUNTS  
-##################################   
+########### ACCOUNTS #############  
+##################################    
 username: Admin
 password: password
 ******************
